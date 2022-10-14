@@ -1,0 +1,19 @@
+version: '3.5'
+
+networks:
+  forum:
+    driver: bridge
+    name: forum_network
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    networks:
+      - forum
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: forum
+    ports:
+      - "3306:3306"
