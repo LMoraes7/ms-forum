@@ -5,8 +5,11 @@ import br.com.forum.domain.model.Topic;
 import br.com.forum.domain.model.User;
 import br.com.forum.domain.repository.mapper.response.CommentFindById;
 import br.com.forum.domain.repository.mapper.response.TopicFindById;
+import br.com.forum.domain.repository.mapper.response.TopicFindByIdWithUser;
 import br.com.forum.domain.repository.mapper.response.UserFindById;
 import br.com.forum.domain.service.GeneratorIdentifierService;
+import br.com.forum.web.controller.request.CommentRequest;
+import br.com.forum.web.controller.request.TopicRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,8 +30,16 @@ public final class TestUtils {
         return new Topic(generatorIdentifierService.topicId(), "title", "contents", LocalDateTime.now(), LocalDateTime.now(), user, comments);
     }
 
+    public static TopicFindByIdWithUser createTopicFindByIdWithUser(final Topic topic) {
+        return new TopicFindByIdWithUser(topic.id(), topic.title(), topic.contents(), topic.creationDate(), topic.updateDate(), new TopicFindByIdWithUser.User(topic.user().name(), topic.user().profilePicture()));
+    }
+
     public static TopicFindById createTopicFindById(final Topic topic) {
-        return new TopicFindById(topic.id(), topic.title(), topic.contents(), topic.creationDate(), topic.updateDate(), new TopicFindById.User(topic.user().name(), topic.user().profilePicture()));
+        return new TopicFindById(topic.id());
+    }
+
+    public static TopicRequest createTopicRequest() {
+        return new TopicRequest("title", "content");
     }
 
     public static Comment createComment(final Topic topic, final User user) {
@@ -37,5 +48,9 @@ public final class TestUtils {
 
     public static CommentFindById createCommentFindById(final Comment comment) {
         return new CommentFindById(comment.id(), comment.contents(), comment.creationDate(), comment.updateDate(), new CommentFindById.User(comment.user().name(), comment.user().profilePicture()));
+    }
+
+    public static CommentRequest createCommentRequest() {
+        return new CommentRequest("content");
     }
 }

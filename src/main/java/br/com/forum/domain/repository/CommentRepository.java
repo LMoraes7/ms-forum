@@ -6,6 +6,7 @@ import br.com.forum.domain.repository.mapper.response.CommentFindById;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 import static br.com.forum.domain.repository.sql.CommentSqlCommands.FIND_BY_TOPIC_ID_WITH_USER;
@@ -27,7 +28,7 @@ public class CommentRepository {
     }
 
     public List<CommentFindById> findByIdWithUser(final String topicId) {
-        return jdbcTemplate.query(FIND_BY_TOPIC_ID_WITH_USER.sql, commentFindByIdRowMapper, topicId);
+        return Collections.unmodifiableList(jdbcTemplate.query(FIND_BY_TOPIC_ID_WITH_USER.sql, commentFindByIdRowMapper, topicId));
     }
 
 }

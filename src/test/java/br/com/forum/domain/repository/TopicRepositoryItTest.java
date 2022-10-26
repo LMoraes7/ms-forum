@@ -51,7 +51,7 @@ final class TopicRepositoryItTest {
 
     @Test
     @Transactional
-    void when_receive_um_id_must_search_the_topic_successfully() {
+    void when_receive_um_id_must_search_the_topic_with_user_successfully() {
         userRepository.save(user);
         topicRepository.save(topic);
 
@@ -59,6 +59,17 @@ final class TopicRepositoryItTest {
 
         assertEquals(topic.id(), returnTopic.id());
         assertEquals(topic.user().name(), returnTopic.user().name());
+    }
+
+    @Test
+    @Transactional
+    void when_receive_um_id_must_search_the_topic_successfully() {
+        userRepository.save(user);
+        topicRepository.save(topic);
+
+        final var returnTopic = topicRepository.findById(topic.id());
+
+        assertEquals(topic.id(), returnTopic.id());
     }
 
     private Integer queryCount() {
