@@ -15,7 +15,13 @@ public final class User implements UserDetails {
     private final String password;
     private final String profilePicture;
 
-    public User(String id, String name, String email, String password, String profilePicture) {
+    public User(
+            final String id,
+            final String name,
+            final String email,
+            final String password,
+            final String profilePicture
+    ) {
         this.id = id;
         this.name = name;
         this.email = email;

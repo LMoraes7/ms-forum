@@ -1,5 +1,8 @@
-package br.com.forum.config.security;
+package br.com.forum.security.config;
 
+import br.com.forum.security.filter.AuthenticationViaTokenFilter;
+import br.com.forum.security.service.AuthenticationService;
+import br.com.forum.security.service.TokenService;
 import br.com.forum.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -10,20 +13,26 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 @EnableWebSecurity
 @Configuration
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 
 	private final AuthenticationService authenticationService;
 	private final TokenService tokenService;
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
 
-	public SecurityConfigurations(final AuthenticationService authenticationService, final TokenService tokenService, final UserService userService, @Qualifier("bCryptPasswordEncoder") final PasswordEncoder passwordEncoder) {
+	public SecurityWebConfig(
+			final AuthenticationService authenticationService,
+			final TokenService tokenService,
+			final UserService userService,
+			@Qualifier("bCryptPasswordEncoder") final PasswordEncoder passwordEncoder
+	) {
 		this.authenticationService = authenticationService;
 		this.tokenService = tokenService;
 		this.userService = userService;
@@ -44,9 +53,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.anyRequest().authenticated()
+			.antMatchers("/user/login").permitAll()
+			.antMatchers("/user/register").permitAll()
+			.anyRequest().authenticated()
 		.and().csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.sessionManagement().sessionCreationPolicy(STATELESS)
 		.and().addFilterBefore(new AuthenticationViaTokenFilter(tokenService, userService), UsernamePasswordAuthenticationFilter.class);
 	}
 	

@@ -1,0 +1,16 @@
+insert into users (user_id, user_name, user_email, user_password, user_profile_picture) values ('USR-1', 'augusto name', 'augusto email', 'augusto password', 'augusto profile picture');
+insert into users (user_id, user_name, user_email, user_password, user_profile_picture) values ('USR-2', 'fernando name', 'fernando email', 'fernando password', 'fernando profile picture');
+insert into users (user_id, user_name, user_email, user_password, user_profile_picture) values ('USR-3', 'diego name', 'diego email', 'diego password', 'diego profile picture');
+insert into users (user_id, user_name, user_email, user_password, user_profile_picture) values ('USR-4', 'maria name', 'maria email', 'maria password', 'maria profile picture');
+insert into users (user_id, user_name, user_email, user_password, user_profile_picture) values ('USR-5', 'gabriel name', 'gabriel email', 'gabriel password', 'gabriel profile picture');
+
+insert into topics (topic_id, topic_title, topic_contents, topic_creation_date, topic_update_date, topic_user_id) values ('TOP-1', 'title 1', 'content 1', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'USR-1');
+insert into topics (topic_id, topic_title, topic_contents, topic_creation_date, topic_update_date, topic_user_id) values ('TOP-2', 'title 2', 'content 2', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'USR-2');
+
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-1', 'content 1', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-1', 'USR-1');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-2', 'content 2', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-2', 'USR-2');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-3', 'content 3', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-1', 'USR-3');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-4', 'content 4', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-2', 'USR-4');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-5', 'content 5', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-1', 'USR-5');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-6', 'content 6', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-2', 'USR-1');
+insert into comments (comment_id, comment_contents, comment_creation_date, comment_update_date, comment_topic_id, comment_user_id) values ('COP-7', 'content 7', '2000-12-31 20:59:59', '2000-12-31 20:59:59', 'TOP-1', 'USR-2');

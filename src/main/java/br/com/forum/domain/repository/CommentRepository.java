@@ -18,13 +18,24 @@ public class CommentRepository {
     private final JdbcTemplate jdbcTemplate;
     private final CommentFindByIdRowMapper commentFindByIdRowMapper;
 
-    public CommentRepository(final JdbcTemplate jdbcTemplate, final CommentFindByIdRowMapper commentFindByIdRowMapper) {
+    public CommentRepository(
+            final JdbcTemplate jdbcTemplate,
+            final CommentFindByIdRowMapper commentFindByIdRowMapper
+    ) {
         this.jdbcTemplate = jdbcTemplate;
         this.commentFindByIdRowMapper = commentFindByIdRowMapper;
     }
 
     public void save(final Comment comment) {
-        jdbcTemplate.update(INSERT.sql, comment.id(), comment.contents(), comment.creationDate(), comment.updateDate(), comment.topic().id(), comment.user().id());
+        jdbcTemplate.update(
+                INSERT.sql,
+                comment.id(),
+                comment.contents(),
+                comment.creationDate(),
+                comment.updateDate(),
+                comment.topic().id(),
+                comment.user().id()
+        );
     }
 
     public List<CommentFindById> findByIdWithUser(final String topicId) {

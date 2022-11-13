@@ -1,4 +1,4 @@
-package br.com.forum.config.security;
+package br.com.forum.security.service;
 
 import br.com.forum.domain.exception.NotFoundException;
 import br.com.forum.domain.service.UserService;
@@ -24,5 +24,4 @@ public final class AuthenticationService implements UserDetailsService {
 			throw new UsernameNotFoundException("informed email does not exist!");
 		}
 	}
-
 }

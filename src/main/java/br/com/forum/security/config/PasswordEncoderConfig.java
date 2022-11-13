@@ -1,4 +1,4 @@
-package br.com.forum.config.security;
+package br.com.forum.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

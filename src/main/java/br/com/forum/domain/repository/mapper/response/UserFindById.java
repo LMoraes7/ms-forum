@@ -2,7 +2,35 @@ package br.com.forum.domain.repository.mapper.response;
 
 import java.util.Objects;
 
-public record UserFindById(String id, String name, String email, String profilePicture) {
+public final class UserFindById {
+
+    private final String id;
+    private final String name;
+    private final String email;
+    private final String profilePicture;
+
+    public UserFindById(String id, String name, String email, String profilePicture) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.profilePicture = profilePicture;
+    }
+
+    public String id() {
+        return id;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public String email() {
+        return email;
+    }
+
+    public String profilePicture() {
+        return profilePicture;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -21,4 +49,10 @@ public record UserFindById(String id, String name, String email, String profileP
                 ", profilePicture='" + profilePicture + '\'' +
                 '}';
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, profilePicture);
+    }
+
 }

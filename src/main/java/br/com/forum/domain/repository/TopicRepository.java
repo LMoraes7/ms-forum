@@ -17,14 +17,26 @@ public class TopicRepository {
     private final TopicFindByIdWithUserRowMapper topicFindByIdWithUserRowMapper;
     private final TopicFindByIdRowMapper topicFindByIdRowMapper;
 
-    public TopicRepository(final JdbcTemplate jdbcTemplate, final TopicFindByIdWithUserRowMapper topicFindByIdWithUserRowMapper, final TopicFindByIdRowMapper topicFindByIdRowMapper) {
+    public TopicRepository(
+            final JdbcTemplate jdbcTemplate,
+            final TopicFindByIdWithUserRowMapper topicFindByIdWithUserRowMapper,
+            final TopicFindByIdRowMapper topicFindByIdRowMapper
+    ) {
         this.jdbcTemplate = jdbcTemplate;
         this.topicFindByIdWithUserRowMapper = topicFindByIdWithUserRowMapper;
         this.topicFindByIdRowMapper = topicFindByIdRowMapper;
     }
 
     public void save(final Topic topic) {
-        jdbcTemplate.update(INSERT.sql, topic.id(), topic.title(), topic.contents(), topic.creationDate(), topic.updateDate(), topic.user().id());
+        jdbcTemplate.update(
+                INSERT.sql,
+                topic.id(),
+                topic.title(),
+                topic.contents(),
+                topic.creationDate(),
+                topic.updateDate(),
+                topic.user().id()
+        );
     }
 
     public TopicFindByIdWithUser findByIdWithUser(final String id) {

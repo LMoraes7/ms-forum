@@ -2,7 +2,17 @@ package br.com.forum.domain.repository.mapper.response;
 
 import java.util.Objects;
 
-public record TopicFindById(String id) {
+public final class TopicFindById {
+
+    private final String id;
+
+    public TopicFindById(String id) {
+        this.id = id;
+    }
+
+    public String id() {
+        return id;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -23,4 +33,5 @@ public record TopicFindById(String id) {
                 "id='" + id + '\'' +
                 '}';
     }
+
 }

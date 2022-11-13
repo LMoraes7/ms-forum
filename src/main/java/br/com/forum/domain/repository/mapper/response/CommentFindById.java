@@ -3,24 +3,46 @@ package br.com.forum.domain.repository.mapper.response;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public record CommentFindById(
-        String id,
-        String contents,
-        LocalDateTime creationDate,
-        LocalDateTime updateDate,
-        br.com.forum.domain.repository.mapper.response.CommentFindById.User user
-) {
+public final class CommentFindById {
 
-    public record User(String name, String profilePicture) {
+    private final String id;
+    private final String contents;
+    private final LocalDateTime creationDate;
+    private final LocalDateTime updateDate;
+    private final User user;
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            CommentFindById.User user = (CommentFindById.User) o;
-            return Objects.equals(name, user.name) && Objects.equals(profilePicture, user.profilePicture);
-        }
+    public CommentFindById(
+            String id,
+            String contents,
+            LocalDateTime creationDate,
+            LocalDateTime updateDate,
+            User user
+    ) {
+        this.id = id;
+        this.contents = contents;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+        this.user = user;
+    }
 
+    public String id() {
+        return id;
+    }
+
+    public String contents() {
+        return contents;
+    }
+
+    public LocalDateTime creationDate() {
+        return creationDate;
+    }
+
+    public LocalDateTime updateDate() {
+        return updateDate;
+    }
+
+    public User user() {
+        return user;
     }
 
     @Override
@@ -32,6 +54,11 @@ public record CommentFindById(
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id, contents, creationDate, updateDate, user);
+    }
+
+    @Override
     public String toString() {
         return "CommentFindById{" +
                 "id='" + id + '\'' +
@@ -40,5 +67,44 @@ public record CommentFindById(
                 ", updateDate=" + updateDate +
                 ", user=" + user +
                 '}';
+    }
+
+    public static final class User {
+
+        private final String name;
+        private final String profilePicture;
+
+        public User(String name, String profilePicture) {
+            this.name = name;
+            this.profilePicture = profilePicture;
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public String profilePicture() {
+            return profilePicture;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return Objects.equals(name, user.name) && Objects.equals(profilePicture, user.profilePicture);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, profilePicture);
+        }
+
+        @Override
+        public String toString() {
+            return "User[" +
+                    "name=" + name + ", " +
+                    "profilePicture=" + profilePicture + ']';
+        }
     }
 }

@@ -16,14 +16,25 @@ public class UserRepository {
     private final UserRowMapper userRowMapper;
     private final UserFindByIdRowMapper userFindByIdRowMapper;
 
-    public UserRepository(final JdbcTemplate jdbcTemplate, final UserRowMapper userRowMapper, final UserFindByIdRowMapper userFindByIdRowMapper) {
+    public UserRepository(
+            final JdbcTemplate jdbcTemplate,
+            final UserRowMapper userRowMapper,
+            final UserFindByIdRowMapper userFindByIdRowMapper
+    ) {
         this.jdbcTemplate = jdbcTemplate;
         this.userRowMapper = userRowMapper;
         this.userFindByIdRowMapper = userFindByIdRowMapper;
     }
 
     public void save(final User user) {
-        this.jdbcTemplate.update(INSERT.sql, user.id(), user.name(), user.email(), user.password(), user.profilePicture());
+        this.jdbcTemplate.update(
+                INSERT.sql,
+                user.id(),
+                user.name(),
+                user.email(),
+                user.password(),
+                user.profilePicture()
+        );
     }
 
     public UserFindById findById(final String id) {

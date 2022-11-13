@@ -20,13 +20,18 @@ import java.util.List;
 @Service
 public final class TopicService {
 
+    private static final String classNameLogger = "[" + TopicService.class.getSimpleName() + "] ";
     private static final Logger logger = LoggerFactory.getLogger(TopicService.class);
 
     private final TopicRepository topicRepository;
     private final CommentRepository commentRepository;
     private final GeneratorIdentifierService generatorIdentifierService;
 
-    public TopicService(final TopicRepository topicRepository, final CommentRepository commentRepository, final GeneratorIdentifierService generatorIdentifierService) {
+    public TopicService(
+            final TopicRepository topicRepository,
+            final CommentRepository commentRepository,
+            final GeneratorIdentifierService generatorIdentifierService
+    ) {
         this.topicRepository = topicRepository;
         this.commentRepository = commentRepository;
         this.generatorIdentifierService = generatorIdentifierService;
@@ -34,9 +39,9 @@ public final class TopicService {
 
     public Topic save(final User user, final TopicRequest topicRequest) {
         final var topic = topicRequest.toDomain(user, generatorIdentifierService.topicId());
-        logger.info("starting the process of registering a topic with id {} and title {}", topic.id(), topic.title());
+        logger.info(classNameLogger + "starting the process of registering a topic with id {} and title {}", topic.id(), topic.title());
         this.topicRepository.save(topic);
-        logger.info("finalizing the process of registering a topic with id {} and title {}", topic.id(), topic.title());
+        logger.info(classNameLogger + "finalizing the process of registering a topic with id {} and title {}", topic.id(), topic.title());
         return topic;
     }
 
@@ -44,29 +49,29 @@ public final class TopicService {
         TopicFindByIdWithUser topicFindByIdWithUser;
 
         try {
-            logger.info("starting process to fetch topic from id {}", id);
+            logger.info(classNameLogger + "starting process to fetch topic from id {}", id);
             topicFindByIdWithUser = this.topicRepository.findByIdWithUser(id);
-            logger.info("finalizing process to fetch topic from id {}", id);
+            logger.info(classNameLogger + "finalizing process to fetch topic from id {}", id);
         } catch (EmptyResultDataAccessException ex) {
-            logger.info("topic id {} does not exist", id);
+            logger.info(classNameLogger + "topic id {} does not exist", id);
             throw new NotFoundException(Topic.class, id);
         }
 
-        logger.info("starting process to fetch topic comments from id {}", id);
+        logger.info(classNameLogger + "starting process to fetch topic comments from id {}", id);
         final var comments = commentRepository.findByIdWithUser(id);
-        logger.info("finalizing process to fetch the topic comments from id {}", id);
-        logger.info("number of comments returned {}", comments.size());
+        logger.info(classNameLogger + "finalizing process to fetch the topic comments from id {}", id);
+        logger.info(classNameLogger + "number of comments returned {}", comments.size());
         return Pair.of(topicFindByIdWithUser, comments);
     }
 
     public TopicFindById findById(final String id) {
         try {
-            logger.info("starting process to fetch topic from id {}", id);
+            logger.info(classNameLogger + "starting process to fetch topic from id {}", id);
             final var topic = this.topicRepository.findById(id);
-            logger.info("finalizing process to fetch topic from id {}", id);
+            logger.info(classNameLogger + "finalizing process to fetch topic from id {}", id);
             return topic;
         } catch (EmptyResultDataAccessException ex) {
-            logger.info("topic id {} does not exist", id);
+            logger.info(classNameLogger + "topic id {} does not exist", id);
             throw new NotFoundException(Topic.class, id);
         }
     }

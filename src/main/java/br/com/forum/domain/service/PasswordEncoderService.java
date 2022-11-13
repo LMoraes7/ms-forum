@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public final class PasswordEncoderService {
 
+    private static final String classNameLogger = "[" + PasswordEncoderService.class.getSimpleName() + "] ";
     private static final Logger logger = LoggerFactory.getLogger(PasswordEncoderService.class);
 
     private final PasswordEncoder passwordEncoder;
@@ -18,9 +19,9 @@ public final class PasswordEncoderService {
     }
 
     public String encrypt(final String password) {
-        logger.info("starting new password encryption");
+        logger.info(classNameLogger + "starting new password encryption");
         final var encode = this.passwordEncoder.encode(password);
-        logger.info("finalizing new password encryption");
+        logger.info(classNameLogger + "finalizing new password encryption");
         return encode;
     }
 }
