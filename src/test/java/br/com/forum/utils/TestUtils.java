@@ -39,7 +39,10 @@ public final class TestUtils {
     }
 
     public static TopicRequest createTopicRequest() {
-        return new TopicRequest("title", "content");
+        final var topicRequest = new TopicRequest();
+        topicRequest.setTitle("title");
+        topicRequest.setTitle("content");
+        return topicRequest;
     }
 
     public static Comment createComment(final Topic topic, final User user) {
@@ -51,6 +54,8 @@ public final class TestUtils {
     }
 
     public static CommentRequest createCommentRequest() {
-        return new CommentRequest("content");
+        final var commentRequest = new CommentRequest();
+        commentRequest.setContent("content");
+        return commentRequest;
     }
 }

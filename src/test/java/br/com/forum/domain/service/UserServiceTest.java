@@ -110,20 +110,27 @@ final class UserServiceTest {
 
     @Test
     void when_you_receive_a_request_to_update_a_user_photo_it_should_update_successfully() {
+        when(userRepository.findById(user.id())).thenReturn(userFindById);
+
         service.updateProfilePicture(user.id(), user.profilePicture());
 
-        verify(userRepository, only()).updateProfilePicture(user.id(), user.profilePicture());
+        verify(userRepository, times(1)).findById(user.id());
+        verify(userRepository, times(1)).updateProfilePicture(user.id(), user.profilePicture());
+        verifyNoMoreInteractions(userRepository);
         verifyNoInteractions(passwordEncoderService, generatorIdentifierService);
     }
 
     @Test
     void when_you_receive_a_request_to_update_a_user_password_it_should_update_successfully() {
+        when(userRepository.findById(user.id())).thenReturn(userFindById);
         when(passwordEncoderService.encrypt(user.password())).thenReturn(user.password());
 
         service.updatePassword(user.id(), user.password());
 
         verify(passwordEncoderService, only()).encrypt(user.password());
-        verify(userRepository, only()).updatePassword(user.id(), user.password());
+        verify(userRepository, times(1)).findById(user.id());
+        verify(userRepository, times(1)).updatePassword(user.id(), user.password());
+        verifyNoMoreInteractions(userRepository);
         verifyNoInteractions(generatorIdentifierService);
     }
 }
