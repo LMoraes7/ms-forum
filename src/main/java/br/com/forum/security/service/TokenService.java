@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-
-import static io.jsonwebtoken.SignatureAlgorithm.HS256;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public final class TokenService {
@@ -42,7 +42,8 @@ public final class TokenService {
 				.setSubject(user.email())
 				.setIssuedAt(now)
 				.setExpiration(new Date(now.getTime() + Long.parseLong(expiration)))
-				.signWith(securityKey, HS256)
+				.signWith(securityKey)
+				.addClaims(buildClaims(user))
 				.compact();
 		logger.info(classNameLogger + "finalizing access token generation process for user of id {}", user.id());
 		return acessToken;
@@ -74,6 +75,15 @@ public final class TokenService {
 
 	private Jws<Claims> decodeToken(final String token) {
 		return Jwts.parserBuilder().setSigningKey(securityKey).build().parseClaimsJws(token);
+	}
+
+	private Map<String, Object> buildClaims(User user) {
+		final var claims = new HashMap<String, Object>();
+		claims.put("id", user.id());
+		claims.put("name", user.name());
+		claims.put("email", user.email());
+		claims.put("profile_picture", user.profilePicture());
+		return claims;
 	}
 
 }
