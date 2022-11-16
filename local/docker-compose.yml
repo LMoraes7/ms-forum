@@ -1,0 +1,42 @@
+version: '3.5'
+
+networks:
+  forum:
+    driver: bridge
+    name: forum_network
+
+volumes:
+  mysql-volume:
+
+services:
+  forum:
+    image: lmoraes7/ms-forum
+    container_name: forum
+    restart: always
+    networks:
+      - forum
+    environment:
+      SERVER_PORT: 8080
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: forum
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      SPRING_PROFILES_ACTIVE: default
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    networks:
+      - forum
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: forum
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-volume:/var/lib/mysql
