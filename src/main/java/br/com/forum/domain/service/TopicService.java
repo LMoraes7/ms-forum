@@ -6,6 +6,7 @@ import br.com.forum.domain.model.User;
 import br.com.forum.domain.repository.CommentRepository;
 import br.com.forum.domain.repository.TopicRepository;
 import br.com.forum.domain.repository.mapper.response.CommentFindById;
+import br.com.forum.domain.repository.mapper.response.TopicFindAll;
 import br.com.forum.domain.repository.mapper.response.TopicFindById;
 import br.com.forum.domain.repository.mapper.response.TopicFindByIdWithUser;
 import br.com.forum.web.controller.request.TopicRequest;
@@ -43,6 +44,13 @@ public final class TopicService {
         this.topicRepository.save(topic);
         logger.info(classNameLogger + "finalizing the process of registering a topic with id {} and title {}", topic.id(), topic.title());
         return topic;
+    }
+
+    public List<TopicFindAll> findAll() {
+        logger.info(classNameLogger + "starting process to find all topics");
+        final var topics = topicRepository.findAll();
+        logger.info(classNameLogger + "finalizing process to find all topics");
+        return topics;
     }
 
     public Pair<TopicFindByIdWithUser, List<CommentFindById>> findByIdWithUserAndComments(final String id) {

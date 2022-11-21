@@ -1,7 +1,8 @@
 package br.com.forum.web.controller;
 
-import br.com.forum.security.service.TokenService;
+import br.com.forum.domain.model.User;
 import br.com.forum.domain.service.UserService;
+import br.com.forum.security.service.TokenService;
 import br.com.forum.web.controller.request.LoginRequest;
 import br.com.forum.web.controller.request.UserRequest;
 import br.com.forum.web.controller.request.UserUpdatePasswordRequest;
@@ -43,9 +44,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid final LoginRequest request) {
         logger.info(classNameLogger + "receiving request to log in user with email {}", request.getEmail());
-        final var token = tokenService.generateToken(authManager.authenticate(request.toAuthentication()));
+        final var user = (User) authManager.authenticate(request.toAuthentication()).getPrincipal();
+        final var token = tokenService.generateToken(user);
         logger.info(classNameLogger + "finalizing request to log in user with email {}", request.getEmail());
-        return ResponseEntity.ok(new LoginResponse("Bearer", token));
+        return ResponseEntity.ok(new LoginResponse("Bearer", token, user.name(), user.profilePicture()));
     }
 
     @PostMapping("/register")

@@ -1,6 +1,7 @@
 package br.com.forum.domain.repository;
 
 import br.com.forum.domain.model.Topic;
+import br.com.forum.domain.repository.mapper.TopicFindAllRowMapper;
 import br.com.forum.domain.repository.mapper.TopicFindByIdRowMapper;
 import br.com.forum.domain.repository.mapper.TopicFindByIdWithUserRowMapper;
 import br.com.forum.domain.repository.mapper.response.TopicFindById;
@@ -20,8 +21,9 @@ final class TopicRepositoryTest {
     private final JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
     private final TopicFindByIdWithUserRowMapper topicFindByIdWithUserRowMapper = mock(TopicFindByIdWithUserRowMapper.class);
     private final TopicFindByIdRowMapper topicFindByIdRowMapper = mock(TopicFindByIdRowMapper.class);
+    private final TopicFindAllRowMapper topicFindAllRowMapper = mock(TopicFindAllRowMapper.class);
 
-    private final TopicRepository repository = new TopicRepository(jdbcTemplate, topicFindByIdWithUserRowMapper, topicFindByIdRowMapper);
+    private final TopicRepository repository = new TopicRepository(jdbcTemplate, topicFindByIdWithUserRowMapper, topicFindByIdRowMapper, topicFindAllRowMapper);
 
     private Topic topic;
     private TopicFindByIdWithUser topicFindByIdWithUser;

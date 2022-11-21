@@ -7,10 +7,14 @@ public final class LoginResponse {
 
     private String mode;
     private String token;
+    private String name;
+    private String profilePicture;
 
-    public LoginResponse(final String mode, final String token) {
+    public LoginResponse(final String mode, final String token, final String name, final String profilePicture) {
         this.mode = mode;
         this.token = token;
+        this.name = name;
+        this.profilePicture = profilePicture;
     }
 
     public String getMode() {
@@ -27,5 +31,21 @@ public final class LoginResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

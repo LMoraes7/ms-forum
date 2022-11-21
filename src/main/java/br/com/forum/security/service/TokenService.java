@@ -33,8 +33,7 @@ public final class TokenService {
 		this.securityKey = securityKey;
 	}
 
-	public String generateToken(final Authentication authentication) {
-		final var user = (User) authentication.getPrincipal();
+	public String generateToken(final User user) {
 		logger.info(classNameLogger + "starting access token generation process for user of id {}", user.id());
 		final var now = new Date();
 		final var acessToken = Jwts.builder()
