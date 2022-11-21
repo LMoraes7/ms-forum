@@ -56,7 +56,7 @@ public class SecurityWebConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/login").permitAll()
 			.antMatchers("/user/register").permitAll()
 			.anyRequest().authenticated()
-		.and().csrf().disable()
+		.and().cors().and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(STATELESS)
 		.and().addFilterBefore(new AuthenticationViaTokenFilter(tokenService, userService), UsernamePasswordAuthenticationFilter.class);
 	}
